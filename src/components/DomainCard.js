@@ -1,4 +1,4 @@
-export default function DomainCard() {
+export default function DomainCard({owner,icon,domain}) {
     const keywords = [
       "github",
       "git",
@@ -14,7 +14,7 @@ export default function DomainCard() {
       
         <div className="shrink-0">
           <img
-            src="https://imgs.search.brave.com/Or6HyKzPfczCFiOuEME7z4aLa8xWi0wmjvCkCLaxn1c/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yNTA0LzI1MDQ5/MTEucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs"
+            src={icon}
             alt="Domain Logo"
             className="h-12 w-12 rounded-full border border-white/30 shadow"
           />
@@ -23,7 +23,7 @@ export default function DomainCard() {
     
         <div className="grow">
           <h2 className="font-extrabold text-lg mb-2 text-white">
-            Github.com
+            {domain}
           </h2>
           <div className="flex flex-wrap gap-2">
             {keywords.map((keyword, index) => (

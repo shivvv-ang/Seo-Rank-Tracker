@@ -2,12 +2,13 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function NewDomainForm(){
+export default function NewDomainForm({onNew}){
     const [domain , setDomain] = useState('');
     function handleSubmit(e){
         e.preventDefault();
         axios.post('/api/domains',{domain});
-        alert("sent")
+        onNew();
+        setDomain("");
     }
     return (
         <form className="flex gap-3 mb-8" onSubmit={handleSubmit}>
