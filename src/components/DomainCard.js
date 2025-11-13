@@ -1,13 +1,6 @@
-export default function DomainCard({owner,icon,domain}) {
-    const keywords = [
-      "github",
-      "git",
-      "copilot",
-      "AI-powered",
-      "developer platform",
-      "largest open source",
-      "community build software",
-    ];
+import Link from "next/link";
+
+export default function DomainCard({icon,domain,keywords}) {
   
     return (
       <div className="flex gap-4 bg-white/10 border border-white/20 backdrop-blur-md rounded-2xl p-5 items-center justify-between hover:bg-white/20 transition-all duration-300 shadow-md hover:shadow-xl">
@@ -20,19 +13,19 @@ export default function DomainCard({owner,icon,domain}) {
           />
         </div>
   
-    
         <div className="grow">
-          <h2 className="font-extrabold text-lg mb-2 text-white">
+          <Link href={"/domains/"+domain} className="font-extrabold text-lg mb-2 text-white">
             {domain}
-          </h2>
+          </Link>
           <div className="flex flex-wrap gap-2">
             {keywords.map((keyword, index) => (
-              <span
+              <Link
+              href={`/domains/${domain}/${keyword.keyword}`}
                 key={index}
                 className="text-xs text-gray-100 bg-white/10 border border-white/20 rounded-lg px-2 py-1 hover:bg-white/20 transition-all"
               >
-                {keyword}
-              </span>
+                {keyword.keyword}
+              </Link>
             ))}
           </div>
         </div>

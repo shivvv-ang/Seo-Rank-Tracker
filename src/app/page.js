@@ -6,13 +6,15 @@ import axios from "axios";
 
 export default function Home() {
    const [domains,setDomains] = useState([]);
+   const [keywords,setKeywords] = useState([]);
    const [loading,setLoading] = useState(false);
 
    const fetchDomains = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get('/api/domains');
-      setDomains(res.data);
+      setDomains(res.data.domains);
+      setKeywords(res.data.keywords);
     } catch (err) {
       console.error("Error fetching domains:", err);
     } finally {
@@ -37,7 +39,12 @@ export default function Home() {
                       </div>
                       <p className="text-sm text-white/70 font-medium animate-pulse">Fetching your domains...</p>
                     </div>}
-        {!loading && (<DomainList domains={domains}/>)}
+        {!loading && domains.length >0 && (<DomainList domains={domains} keywords={keywords}/>)}
+        {!loading && domains.length  == 0 && (
+          <div className="text-center py-10 text-white/80 italic animate-fadeIn">
+            No domain found ✨
+          </div>
+        )}
       </div>
     </div>
   );

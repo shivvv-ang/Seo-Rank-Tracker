@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import axios from "axios";
 import * as cheerio from 'cheerio';
+import { Keyword } from "@/models/Keyword";
 
 async function getFaviconUrl(domain){
    const response = await axios.get(`https://${domain}`, {
@@ -65,10 +66,44 @@ export async function GET() {
     }
 
     const domains = await Domain.find({ owner: session.user?.email });
-    return Response.json(domains);
+
+    const keywords = await Keyword.find({
+      owner:session.user?.email,
+      domain:domains.map(doc => doc.domain),
+    });
+
+    return Response.json({domains,keywords});
 
   } catch (error) {
     console.error("GET /api/domains error:", error);
     return Response.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(req) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const domain = searchParams.get("domain");
+
+    if (!domain) {
+      return Response.json({ error: "Domain is required" }, { status: 400 });
+    }
+
+    await mongoose.connect(process.env.MONGODB_URI);
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const result = await Domain.deleteOne({
+      domain,
+      owner: session.user.email,
+    });
+
+    return Response.json({ success: true, deletedCount: result.deletedCount });
+  } catch (err) {
+    console.error("DELETE /api/domains error:", err);
+    return Response.json({ error: err.message }, { status: 500 });
   }
 }
