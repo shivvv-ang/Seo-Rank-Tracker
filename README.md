@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🔎 SEO Rank Tracker (Experimental Project)
 
-## Getting Started
+This project started as a way for me to explore **Next.js**, **Puppeteer**, and **web scraping**.  
+The goal: build a simple tool that checks the **Google Search ranking** of a keyword for a given domain.
 
-First, run the development server:
+I learned *a lot* in this project — even though I couldn't complete everything due to Google's advanced bot protection.  
+Still, the experience was extremely valuable and I plan to revisit this once I’m more skilled.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 What I Learned
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### ✅ **1. Next.js fundamentals**
+- API routes and backend logic inside Next.js  
+- File structure & conventions  
+- Building utilities inside `src/libs`  
+- Running server-side scripts safely  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✅ **2. Web scraping foundations**
+Experimented with:
+- **Puppeteer**
+- **puppeteer-extra**
+- **Stealth plugin**
+- Human-like mouse movements
+- Random delays & scroll
+- Handling cookie banners / consent screens
 
-## Learn More
+### ⚠️ **3. Google is very hard to scrape**
+Google has:
+- IP rate limiting  
+- Captcha challenges  
+- “Unusual traffic detected” pages  
+- Bot-detection fingerprints  
+- Layout variations  
+- Network-level blocking (especially on Indian ISPs)
 
-To learn more about Next.js, take a look at the following resources:
+Even with:
+- Stealth plugin  
+- Headful mode  
+- Delays  
+- Random mouse/scroll  
+- Proxy support  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Google still flagged the requests without **residential proxies**, which cost money.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This was the point where I decided to **pause the project** and return when I’m more experienced.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📌 Project Goal (Original Idea)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The rank tracker’s purpose:
+
+```txt
+→ Input keyword
+→ Search it on Google using Puppeteer
+→ Scan all search result links
+→ Find the ranking position of the given domain
